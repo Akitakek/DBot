@@ -21,6 +21,11 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
+    - name: Download project as artifact
+      uses: actions/upload-artifact@master
+      with:
+        name: bundle
+        path: ./dist
       
   deploy:
     runs-on: ubuntu-latest
