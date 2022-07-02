@@ -15,6 +15,7 @@ public class Info : ApplicationCommandModule
 
         var guild = context.Guild;
         var channels = await context.Guild.GetChannelsAsync();
+        var tier = guild.PremiumTier == PremiumTier.None ? "Lv0" : guild.PremiumTier.ToString().Replace("Tier_", "Lv");
 
         var embed = new DiscordEmbedBuilder
         {
@@ -23,7 +24,7 @@ public class Info : ApplicationCommandModule
         }
         .WithThumbnail(guild.IconUrl)
         .AddField("Overview", $"Owner: `{guild.Owner.DisplayName}{guild.Owner.Discriminator} ({guild.Owner.Id})`\n" +
-                              $"Boosts: `{guild.PremiumSubscriptionCount} (T{guild.PremiumTier})`\n" +
+                              $"Boosts: `{guild.PremiumSubscriptionCount} ({tier})`\n" +
                               $"Created at: `{guild.CreationTimestamp.ToString("G")}`\n" +
                               $"Roles: `{guild.Roles.Count()}`\n" +
                               $"Channels: `{channels.Count()}`\n" +
