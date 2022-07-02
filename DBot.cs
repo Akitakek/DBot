@@ -11,14 +11,15 @@ public class DBot
     public static string AppDir = $"{AppContext.BaseDirectory}";
     public static string DefaultConfigPath = $"{AppDir}/Shards/defaultConfig.json";
 
-    public async void Initialize(DiscordShardedClient client)
+    public void Initialize(DiscordShardedClient client)
     {
-        // Init events
+        // Init global
         client.GuildAvailable += GuildAvailable;
     }
 
-    public void Initialize(DiscordClient client, IConfigurationRoot config)
+    public void InitializeShard(DiscordClient client, IConfigurationRoot config)
     {
+        // Init shard
         var commands = client.UseSlashCommands();
 
         if (config["Modules"].Contains("Moderation")) commands.RegisterCommands<Moderation>();
@@ -42,6 +43,6 @@ public class DBot
             .AddJsonFile($"/Shards/{guildId}/config.json", true)
             .Build();
 
-        Initialize(client, config);
+        InitializeShard(client, config);
     }
 }
