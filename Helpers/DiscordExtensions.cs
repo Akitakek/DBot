@@ -6,11 +6,9 @@ public static class DiscordExtensions {
     
     private static DBot? _dBot;
 
-    public static DiscordShardedClient AddDBot(this DiscordShardedClient client)
+    public static async Task<DiscordShardedClient> AddDBot(this DiscordShardedClient client)
     {
         _dBot = new DBot();
-        _dBot.Initialize(client);
-
-        return client;
+        return await _dBot.Initialize(client);
     }
 }

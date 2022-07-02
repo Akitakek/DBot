@@ -20,7 +20,7 @@ var client = new DiscordShardedClient(new DiscordConfiguration
     TokenType = TokenType.Bot
 });
 
-client.AddDBot();
+await client.AddDBot();
 await client.StartAsync();
 
 var token = source.Token;
