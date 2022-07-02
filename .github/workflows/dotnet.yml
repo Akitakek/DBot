@@ -34,7 +34,7 @@ jobs:
       - name: Upload Build Artifact
         uses: actions/upload-artifact@master
         with:
-          name: bundle
+          name: artifact-dbot
           path: ./dist
   
   deploy:
@@ -45,7 +45,7 @@ jobs:
       - name: Download Build Artifact
         uses: actions/download-artifact@master
         with:
-          name: bundle
+          name: artifact-dbot
           path: ./dist
           
       - name: Deploy project with SSH
@@ -55,4 +55,4 @@ jobs:
          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
          REMOTE_USER: ${{ secrets.REMOTE_USER }}
          SOURCE: "dist"
-         TARGET: "~/"
+         TARGET: ~/"
