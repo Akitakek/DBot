@@ -56,3 +56,16 @@ jobs:
          REMOTE_USER: ${{ secrets.REMOTE_USER }}
          SOURCE: "dist"
          TARGET: "~/"
+         
+  restart:
+    runs-on: ubuntu-latest
+    needs: build
+    
+    steps:
+      - name: restart bot
+        uses: garygrossgarten/github-action-ssh@release
+        with:
+          command: sudo systemctl restart DBot
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USER }}
+          privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
