@@ -9,6 +9,7 @@ namespace Bot.Modules;
 public class Moderation : ApplicationCommandModule
 {
     [SlashCommand("purge", "Deletes X amount of messages (1-100)")]
+    [SlashRequirePermissions(Permissions.ManageMessages)]
     public async Task Purge(InteractionContext context, [Option("amount", "Amount to delete")] long x)
     {
         await context.CreateResponseAsync(InteractionResponseType.DeferredChannelMessageWithSource);
