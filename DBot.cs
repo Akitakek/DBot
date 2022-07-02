@@ -16,6 +16,7 @@ public class DBot
     {
         var commands = await client.UseSlashCommandsAsync();
         commands.RegisterCommands<Moderation>();
+        commands.RegisterCommands<Info>();
 
         // Init global
         client.GuildAvailable += GuildAvailable;      
