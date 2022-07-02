@@ -9,7 +9,7 @@ namespace Bot.Modules;
 public class Info : ApplicationCommandModule
 {
     [SlashCommand("serverinfo", "View basic information about the server")]
-    public async Task Purge(InteractionContext context)
+    public async Task Serverinfo(InteractionContext context)
     {
         await context.CreateResponseAsync(InteractionResponseType.DeferredChannelMessageWithSource);
 
