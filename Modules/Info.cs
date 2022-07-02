@@ -31,6 +31,6 @@ public class Info : ApplicationCommandModule
                               $"ID: `{guild.Id}`", false)
         .Build();
 
-        await context.CreateResponseAsync(embed: embed);
+        await context.FollowUpAsync(new DiscordFollowupMessageBuilder().AddEmbed(embed));
     }
 }
