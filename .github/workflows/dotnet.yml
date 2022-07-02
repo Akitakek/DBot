@@ -59,7 +59,7 @@ jobs:
          
   restart:
     runs-on: ubuntu-latest
-    needs: build
+    needs: deploy
     
     steps:
       - name: restart bot
