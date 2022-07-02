@@ -8,7 +8,7 @@ namespace Bot.Modules;
 public class Moderation : ApplicationCommandModule
 {
     Random random = new Random();
-    
+
     [SlashCommand("poll", "Creates a poll to be answered by the server members.")]
     [SlashRequirePermissions(Permissions.ManageMessages)]
     [SlashRequireGuild]
@@ -29,7 +29,7 @@ public class Moderation : ApplicationCommandModule
         var embed = new DiscordEmbedBuilder
         {
             Title = $"Poll: {question}",
-            Color = new DiscordColor(String.Format("#{0:X6}", random.Next(0x1000000))),
+            Color = DBot.ThemeColor,
             Description = $":one: {optionsList[0]}\n:two: {optionsList[1]}"
         };
 
