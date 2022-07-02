@@ -10,6 +10,7 @@ namespace Bot.Modules;
 public class Info : ApplicationCommandModule
 {
     [SlashCommand("serverinfo", "View basic information about the server")]
+    [SlashRequireGuild]
     public async Task Serverinfo(InteractionContext context)
     {
         await context.CreateResponseAsync(InteractionResponseType.DeferredChannelMessageWithSource);
@@ -38,6 +39,7 @@ public class Info : ApplicationCommandModule
     }
 
     [SlashCommand("roleinfo", "View info about a server role")]
+    [SlashRequireGuild]
     public async Task Roleinfo(InteractionContext context, [Option("role", "Target role")] DiscordRole role)
     {
         await context.CreateResponseAsync(InteractionResponseType.DeferredChannelMessageWithSource);
