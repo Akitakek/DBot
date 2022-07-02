@@ -5,7 +5,7 @@
 > Artifacts available through [GitHub Actions](https://github.com/Akitakek/DBot/actions) in the meantime.
 
 ## Requirements
-`appsettings.json` file in build (or run) directory
+`appsettings.json` file in build (or run) directory.
 ```json
 {
     ¨discordToken" : "YOUR TOKEN HERE"
