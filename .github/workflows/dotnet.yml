@@ -63,9 +63,10 @@ jobs:
     
     steps:
       - name: restart bot
-        uses: garygrossgarten/github-action-ssh@release
+        uses: appleboy/ssh-action@v0.1.4
         with:
-          command: sudo systemctl restart DBot
           host: ${{ secrets.REMOTE_HOST }}
           username: ${{ secrets.REMOTE_USER }}
-          privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            sudo systemctl restart DBot
