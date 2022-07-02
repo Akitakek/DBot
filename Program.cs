@@ -1,4 +1,5 @@
-﻿using DSharpPlus;
+﻿using Bot.Helpers;
+using DSharpPlus;
 using Microsoft.Extensions.Configuration;
 
 Console.Title = "DBot - Starting";

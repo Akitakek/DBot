@@ -1,6 +1,6 @@
 using DSharpPlus;
-using Bot;
-using Microsoft.Extensions.Configuration;
+
+namespace Bot.Helpers;
 
 public static class DiscordExtensions {
     
