@@ -23,12 +23,12 @@ public class Info : ApplicationCommandModule
         }
         .WithThumbnail(guild.IconUrl)
         .AddField("Overview", $"Owner: `{guild.Owner.DisplayName}{guild.Owner.Discriminator} ({guild.Owner.Id})`\n" +
-                              $"Boosts: `{guild.PremiumSubscriptionCount} (T{guild.PremiumTier})`" +
-                              $"Created at: `{guild.CreationTimestamp.ToString("G")}`" +
-                              $"Roles: `{guild.Roles.Count()}`" +
-                              $"Channels: `{channels.Count()}`" +
-                              $"Members: `{guild.MemberCount}`" +
-                              $"ID: `{guild.Id}`", false)
+                              $"Boosts: `{guild.PremiumSubscriptionCount} (T{guild.PremiumTier})`\n" +
+                              $"Created at: `{guild.CreationTimestamp.ToString("G")}`\n" +
+                              $"Roles: `{guild.Roles.Count()}`\n" +
+                              $"Channels: `{channels.Count()}`\n" +
+                              $"Members: `{guild.MemberCount}`\n" +
+                              $"ID: `{guild.Id}`\n", false)
         .Build();
 
         await context.FollowUpAsync(new DiscordFollowupMessageBuilder().AddEmbed(embed));
