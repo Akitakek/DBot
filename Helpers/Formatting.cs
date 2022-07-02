@@ -1,7 +1,12 @@
 namespace Bot.Helpers;
 
-public static class Time
+public static class Formatting
 {
+    public static string ToYesNo(this bool b)
+    {
+        return (b ? "Yes" : "No");
+    }
+
     public static TimeSpan? ParseTime(string strTime)
     {
         TimeSpan? time = null;
