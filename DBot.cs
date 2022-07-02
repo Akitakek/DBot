@@ -1,7 +1,6 @@
 using DSharpPlus;
 using DSharpPlus.SlashCommands;
 using DSharpPlus.EventArgs;
-using Microsoft.Extensions.Configuration;
 using Bot.Modules;
 using Bot.Types;
 using Newtonsoft.Json;

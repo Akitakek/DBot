@@ -2,7 +2,6 @@ using DSharpPlus;
 using DSharpPlus.Entities;
 using DSharpPlus.SlashCommands;
 using DSharpPlus.SlashCommands.Attributes;
-using Bot.Helpers;
 
 namespace Bot.Modules;
 
