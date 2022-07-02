@@ -2,6 +2,7 @@ using DSharpPlus;
 using DSharpPlus.SlashCommands;
 using DSharpPlus.EventArgs;
 using Microsoft.Extensions.Configuration;
+using Bot.Modules;
 
 namespace Bot;
 
@@ -16,6 +17,13 @@ public class DBot
         client.GuildAvailable += GuildAvailable;
     }
 
+    public void Initialize(DiscordClient client, IConfigurationRoot config)
+    {
+        var commands = client.UseSlashCommands();
+
+        if (config["Modules"].Contains("Moderation")) commands.RegisterCommands<Moderation>();
+    }
+
     private async Task GuildAvailable(DiscordClient client, GuildCreateEventArgs args)
     {
         var guildId = args.Guild.Id;
@@ -28,5 +36,12 @@ public class DBot
             Directory.CreateDirectory(shardConfigDir);
             File.Copy(DefaultConfigPath, shardConfigPath);
         }
+
+        // Load config file
+        var config = new ConfigurationBuilder()
+            .AddJsonFile($"/Shards/{guildId}/config.json", true)
+            .Build();
+
+        Initialize(client, config);
     }
 }
