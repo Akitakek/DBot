@@ -1,4 +1,5 @@
 using DSharpPlus;
+using DSharpPlus.Entities;
 using DSharpPlus.SlashCommands;
 using DSharpPlus.EventArgs;
 using Bot.Modules;
@@ -11,6 +12,7 @@ public class DBot
 {
     public static string AppDir = $"{AppContext.BaseDirectory}";
     public static string DefaultConfigPath = $"{AppDir}/Shards/defaultConfig.json";
+    public static DiscordColor ThemeColor = new DiscordColor("f5d63d");
 
     public async Task<DiscordShardedClient> Initialize(DiscordShardedClient client)
     {
