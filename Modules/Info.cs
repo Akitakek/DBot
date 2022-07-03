@@ -6,13 +6,25 @@ using Bot.Helpers;
 
 namespace Bot.Modules;
 
-[SlashRequireGuild]
 public class Info : ApplicationCommandModule
 {
+    public async Task<bool> ModuleEnabled(InteractionContext context)
+    {
+        if (DB.Guild.Get(context.Guild.Id).EnabledModules?.Contains(this.GetType().Name) ?? false)
+            return true;
+
+        await context.CreateResponseAsync(
+            InteractionResponseType.ChannelMessageWithSource,
+            new DiscordInteractionResponseBuilder().WithContent($"Command `{context.CommandName}` is part of the module `{this.GetType().Name}` which is not enabled on this server."));
+        return false;
+    }
+
     [SlashCommand("serverinfo", "View basic information about the server")]
     [SlashRequireGuild]
     public async Task Serverinfo(InteractionContext context)
     {
+        if (!await ModuleEnabled(context)) return;     
+
         await context.CreateResponseAsync(InteractionResponseType.DeferredChannelMessageWithSource);
 
         var guild = context.Guild;
@@ -42,6 +54,8 @@ public class Info : ApplicationCommandModule
     [SlashRequireGuild]
     public async Task Roleinfo(InteractionContext context, [Option("role", "Target role")] DiscordRole role)
     {
+        if (!await ModuleEnabled(context)) return;     
+
         await context.CreateResponseAsync(InteractionResponseType.DeferredChannelMessageWithSource);
 
         role = context.Guild.GetRole(role.Id);
@@ -63,8 +77,11 @@ public class Info : ApplicationCommandModule
     }
 
     [SlashCommand("avatar", "Get a user's avatar")]
+    [SlashRequireGuild]
     public async Task Avatar(InteractionContext context, [Option("member", "Target member")] DiscordUser user)
     {
+        if (!await ModuleEnabled(context)) return;     
+
         await context.CreateResponseAsync(InteractionResponseType.DeferredChannelMessageWithSource);
 
         var guild = context.Guild;

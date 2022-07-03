@@ -1,3 +1,4 @@
+using Bot.Helpers;
 using DSharpPlus;
 using DSharpPlus.Entities;
 using DSharpPlus.SlashCommands;
@@ -9,11 +10,24 @@ public class Moderation : ApplicationCommandModule
 {
     Random random = new Random();
 
+    public async Task<bool> ModuleEnabled(InteractionContext context)
+    {
+        if (DB.Guild.Get(context.Guild.Id).EnabledModules?.Contains(this.GetType().Name) ?? false)
+            return true;
+
+        await context.CreateResponseAsync(
+            InteractionResponseType.ChannelMessageWithSource,
+            new DiscordInteractionResponseBuilder().WithContent($"Command `{context.CommandName}` is part of the module `{this.GetType().Name}` which is not enabled on this server."));
+        return false;
+    }
+
     [SlashCommand("poll", "Creates a poll to be answered by the server members.")]
     [SlashRequirePermissions(Permissions.ManageMessages)]
     [SlashRequireGuild]
-    public async Task PollCommand(InteractionContext context, [Option("Question", "Question to poll")] string question, [Option("Options", "Options separated with a comma")] string options)
+    public async Task Poll(InteractionContext context, [Option("Question", "Question to poll")] string question, [Option("Options", "Options separated with a comma")] string options)
     {
+        if (!await ModuleEnabled(context)) return;
+
         await context.CreateResponseAsync(InteractionResponseType.DeferredChannelMessageWithSource);
 
         options = options.Replace(", ", ",");
@@ -64,11 +78,13 @@ public class Moderation : ApplicationCommandModule
     [SlashRequireGuild]
     public async Task Purge(InteractionContext context, [Option("amount", "Amount to delete")] long x)
     {
+        if (!await ModuleEnabled(context)) return;
+
         await context.CreateResponseAsync(InteractionResponseType.DeferredChannelMessageWithSource);
 
         x = Math.Clamp(x, 1, 99);
-        var messages = await context.Channel.GetMessagesAsync((int)x+1);
-        
+        var messages = await context.Channel.GetMessagesAsync((int)x + 1);
+
         await context.Channel.DeleteMessagesAsync(messages);
 
         await context.CreateResponseAsync(
