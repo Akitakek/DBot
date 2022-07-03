@@ -10,12 +10,12 @@
   <ItemGroup>
     <PackageReference Include="DSharpPlus" Version="4.2.0" />
     <PackageReference Include="DSharpPlus.SlashCommands" Version="4.2.0" />
+    <PackageReference Include="LiteDB" Version="5.0.12" />
     <PackageReference Include="Microsoft.Extensions.COnfiguration.Binder" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.COnfiguration.Json" Version="6.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Shards\defaultConfig.json" CopyToOutputDirectory="PreserveNewest" />
     <None Update="appsettings.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
