@@ -12,7 +12,7 @@ public class Moderation : ApplicationCommandModule
 
     public async Task<bool> ModuleEnabled(InteractionContext context)
     {
-        if (DB.Guild.Get(context.Guild.Id).EnabledModules?.Contains(this.GetType().Name) ?? false)
+        if (DB.Guild.Get(context.Guild.Id).EnabledModules.Contains(this.GetType().Name))
             return true;
 
         await context.CreateResponseAsync(
