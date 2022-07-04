@@ -58,13 +58,9 @@ public class Tickets : ApplicationCommandModule
                     DiscordColor embedColor = DBot.ThemeColor;
                     if (_embedColor != null) embedColor = new DiscordColor(_embedColor);
 
-                    Console.WriteLine("A");
-
                     ulong ticketsCategory = 0;
                     if (_ticketsCategory != null)
                         ulong.TryParse(_ticketsCategory, out ticketsCategory);
-
-                    Console.WriteLine("B");
 
                     var ticketSystemId = dbGuild.TicketSystems.Count() + 1;
                     var ticketSystem = DBTicketSystem.Create
@@ -93,7 +89,6 @@ public class Tickets : ApplicationCommandModule
                     if (_buttonEmoji != null)
                         ticketSystem.buttonEmoji = new DiscordComponentEmoji(_buttonEmoji);
 
-                    Console.WriteLine("C");
                     //dbGuild.TicketSystems.Add(ticketSystem);
 
                     var embed = new DiscordEmbedBuilder()
@@ -103,8 +98,6 @@ public class Tickets : ApplicationCommandModule
                         Description = ticketSystem.embedDescription.Replace("{$USER}", context.User.Mention),
                     }.Build();
 
-                    Console.WriteLine("D");
-
                     var button = new DiscordButtonComponent
                     (
                         ButtonStyle.Primary,
@@ -113,13 +106,9 @@ public class Tickets : ApplicationCommandModule
                         emoji: ticketSystem.buttonEmoji
                     );
 
-                    Console.WriteLine("E");
-
                     var builder = new DiscordMessageBuilder()
                         .WithEmbed(embed)
                         .AddComponents(button);
-
-                    Console.WriteLine("F");
 
                     await context.Channel.SendMessageAsync(builder);
 
