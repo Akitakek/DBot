@@ -20,6 +20,7 @@ public class DBot
         commands.RegisterCommands<Base>();
         commands.RegisterCommands<Moderation>();
         commands.RegisterCommands<Info>();
+        commands.RegisterCommands<Tickets>();
 
         client.GuildAvailable += GuildAvailable;
 
