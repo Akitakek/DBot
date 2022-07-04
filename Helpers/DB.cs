@@ -43,16 +43,13 @@ public static class DB
 
                 if (guild == null)
                 {
-                    guild = DBGuild.Create(_id, _enabledModules, _channels, _tickets, _members);
+                    guild = DBGuild.Create(_id, _enabledModules);
                     col.Insert(guild);
                     col.EnsureIndex(guild => guild.Id);
                 }    
                 else
                 {
                     guild.EnabledModules = _enabledModules == null ? guild.EnabledModules : _enabledModules;
-                    guild.Channels = _channels == null ? guild.Channels : _channels;
-                    guild.Tickets = _tickets == null ? guild.Tickets : _tickets;
-                    guild.Members = _members == null ? guild.Members : _members;
                 }
 
                 return guild;
