@@ -26,6 +26,8 @@ public class Base : ApplicationCommandModule
         Info,
         [ChoiceName("Moderation")]
         Moderation,
+        [ChoiceName("Tickets")]
+        Tickets
     }
 
     [SlashCommand("module", "Interact with the bot's modules")]
@@ -42,54 +44,47 @@ public class Base : ApplicationCommandModule
         {
             var col = db.GetCollection<DBGuild>("guilds");
             var dbGuild = col.FindOne(x => x.Id == context.Guild.Id);
-            
+
             string response = "";
             switch (action)
             {
                 case ModuleActions.Enable:
-                {
-                    if (!dbGuild.EnabledModules.Contains(module.GetName()))
                     {
-                        dbGuild.EnabledModules.Add(module.GetName());
-                        response = $"Module `{module.GetName()}` has been **enabled** for the server.";
-                    }
-                    else
-                        response = $"Module `{module.GetName()}` was already enabled.";
+                        if (!dbGuild.EnabledModules.Contains(module.GetName()))
+                        {
+                            dbGuild.EnabledModules.Add(module.GetName());
+                            response = $"Module `{module.GetName()}` has been **enabled** for the server.";
+                        }
+                        else
+                            response = $"Module `{module.GetName()}` was already enabled.";
 
-                    await context.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource,
-                        new DiscordInteractionResponseBuilder().WithContent(response));
-                    break;
-                }
+                        break;
+                    }
                 case ModuleActions.Disable:
-                {
-                    if (dbGuild.EnabledModules.Contains(module.GetName()))
                     {
-                        dbGuild.EnabledModules.RemoveAll(x => x == module.GetName());
-                        response = $"Module `{module.GetName()}` has been **disabled** for the server.";
-                    }
-                    else
-                        response = $"Module `{module.GetName()}` was not enabled.";
-                        
-                    await context.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource,
-                        new DiscordInteractionResponseBuilder().WithContent(response));
-                    break;
-                }
-                case ModuleActions.Status:
-                {
-                    response = $"Enabled modules: `{string.Join(", ", dbGuild.EnabledModules.ToArray())}`";
+                        if (dbGuild.EnabledModules.Contains(module.GetName()))
+                        {
+                            dbGuild.EnabledModules.RemoveAll(x => x == module.GetName());
+                            response = $"Module `{module.GetName()}` has been **disabled** for the server.";
+                        }
+                        else
+                            response = $"Module `{module.GetName()}` was not enabled.";
 
-                    await context.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource,
-                        new DiscordInteractionResponseBuilder().WithContent(response));
-                    break;
-                }
+                        break;
+                    }
+                case ModuleActions.Status:
+                    {
+                        response = $"Enabled modules: `{string.Join(", ", dbGuild.EnabledModules.ToArray())}`";
+                        break;
+                    }
                 default:
-                {
-                    response = $"**[ERROR]** Action misunderstood.";
-                    await context.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource,
-                        new DiscordInteractionResponseBuilder().WithContent(response));
-                    break;
-                }
+                    {
+                        response = $"**[ERROR]** Action misunderstood.";
+                        break;
+                    }
             }
+            await context.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource,
+                new DiscordInteractionResponseBuilder().WithContent(response));
 
             col.Update(dbGuild);
         }
