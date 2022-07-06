@@ -2,22 +2,25 @@ namespace Bot.Entities;
 
 public class DBTicket 
 {
-    public ulong SystemId { get; set; }
+    public int Id { get; set; }
+    public int SystemId { get; set; }
+    public ulong ChannelId { get; set; }
     public ulong OwnerId { get; set; }
-    public ulong Id { get; set; }
 
     public static DBTicket Create
     (
-        ulong _systemId,
-        ulong _ownerId,
-        ulong _id
+        int _id,
+        int _systemId,
+        ulong _channelId,
+        ulong _ownerId
     )
     {
         return new DBTicket
         {
+            Id = _id,
             SystemId = _systemId,
+            ChannelId = _channelId,
             OwnerId = _ownerId,
-            Id = _id
         };
     }
 }
