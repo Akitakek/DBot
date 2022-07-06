@@ -27,6 +27,8 @@ public class Tickets : ApplicationCommandModule
         Setup,
     }
 
+    public static string TicketIdPrefix = "dbot_ticket_";
+
     [SlashCommand("ticket", "Interact with the bot's ticket system")]
     [SlashRequirePermissions(Permissions.Administrator)]
     [SlashRequireGuild]
@@ -41,7 +43,7 @@ public class Tickets : ApplicationCommandModule
         [Option("buttonemoji", "Embed's button emoji")] DiscordEmoji? _buttonEmoji = null,
         [Option("ticketscategory", "Category to send tickets in")] string? _ticketsCategory = null,
         [Option("ticketsprefix", "ticket- for example")] string? _ticketsPrefix = null,
-        [Option("ticketsmessage", "{$USER} - Hey!")] string? _ticketsMessage = null
+        [Option("ticketsmessage", "$USER - Hey!")] string? _ticketsMessage = null
     )
     {
         if (!await ModuleEnabled(context)) return;     
@@ -62,7 +64,7 @@ public class Tickets : ApplicationCommandModule
                     if (_ticketsCategory != null)
                         ulong.TryParse(_ticketsCategory, out ticketsCategory);
 
-                    var ticketSystemId = dbGuild.TicketSystems.Count() + 1;
+                    var ticketSystemId = dbGuild.TicketSystems.Count();
                     var ticketSystem = DBTicketSystem.Create
                     (
                         ticketSystemId,
@@ -87,23 +89,21 @@ public class Tickets : ApplicationCommandModule
                         }
                     }
                     if (_buttonEmoji != null)
-                        ticketSystem.buttonEmoji = new DiscordComponentEmoji(_buttonEmoji);
-
-                    //dbGuild.TicketSystems.Add(ticketSystem);
+                        ticketSystem.ButtonEmoji = new DiscordComponentEmoji(_buttonEmoji);
 
                     var embed = new DiscordEmbedBuilder()
                     {
-                        Title = ticketSystem.embedTitle,
-                        Color = ticketSystem.embedColor,
-                        Description = ticketSystem.embedDescription.Replace("{$USER}", context.User.Mention),
+                        Title = ticketSystem.EmbedTitle,
+                        Color = ticketSystem.EmbedColor,
+                        Description = ticketSystem.EmbedDescription,
                     }.Build();
 
                     var button = new DiscordButtonComponent
                     (
                         ButtonStyle.Primary,
-                        ticketSystemId.ToString(),
-                        ticketSystem.buttonText,
-                        emoji: ticketSystem.buttonEmoji
+                        $"{TicketIdPrefix}new_{ticketSystemId}",
+                        ticketSystem.ButtonText,
+                        emoji: ticketSystem.ButtonEmoji
                     );
 
                     var builder = new DiscordMessageBuilder()
@@ -112,11 +112,13 @@ public class Tickets : ApplicationCommandModule
 
                     await context.Channel.SendMessageAsync(builder);
 
-
+                    dbGuild.TicketSystems.Add(ticketSystem);
+                    col.Update(dbGuild);
+                    
+                    await context.DeleteResponseAsync();
                     break;
                 }
             }
-            col.Update(dbGuild);
         }
     }
 }
