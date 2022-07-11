@@ -77,6 +77,19 @@ public class DBot
                                     args.Guild.GetChannel(ticketSystem.TicketsCategory)
                                 );
 
+                                var member = await args.Guild.GetMemberAsync(args.User.Id);
+                                var staffRole = args.Guild.GetRole(ticketSystem.StaffRoleId);
+
+                                await ticketChannel.AddOverwriteAsync(member, Permissions.AccessChannels | Permissions.ReadMessageHistory | Permissions.SendMessages | Permissions.AttachFiles);
+                                await ticketChannel.AddOverwriteAsync(staffRole, 
+                                    Permissions.AccessChannels | 
+                                    Permissions.ReadMessageHistory | 
+                                    Permissions.SendMessages | 
+                                    Permissions.AttachFiles | 
+                                    Permissions.ManageMessages |
+                                    Permissions.ManageChannels
+                                );
+
                                 var ticket = DBTicket.Create(ticketSystem.NextTicketId, ticketSystemId, ticketChannel.Id, args.User.Id);
                                 ticketSystem.Tickets.Add(ticket);
                                 ticketSystem.NextTicketId++;

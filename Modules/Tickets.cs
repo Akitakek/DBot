@@ -36,6 +36,7 @@ public class Tickets : ApplicationCommandModule
     (
         InteractionContext context,
         [Option("action", "Action to execute")] TicketActions action,
+        [Option("staffrole", "@Role that deals with tickets")] DiscordRole staffRole,
         [Option("title", "Embed title")] string? _embedTitle = null,
         [Option("description", "Embed description")] string? _embedDescription = null,
         [Option("color", "Embed color (#FFFFFF)")] string? _embedColor = null,
@@ -69,6 +70,7 @@ public class Tickets : ApplicationCommandModule
                     (
                         ticketSystemId,
                         context.Guild.Id,
+                        staffRole.Id,
                         _embedTitle,
                         _embedDescription,
                         embedColor,

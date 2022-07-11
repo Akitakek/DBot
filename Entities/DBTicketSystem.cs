@@ -6,6 +6,7 @@ public class DBTicketSystem
 {
     public int Id { get; set; }
     public ulong GuildId { get; set; }
+    public ulong StaffRoleId { get; set; }
 
     public string EmbedTitle { get; set; } = "Tickets";
     public string EmbedDescription { get; set; } = "Create a ticket by clicking the button below.";
@@ -25,6 +26,7 @@ public class DBTicketSystem
     (
         int _id,
         ulong _guildId,
+        ulong _staffRoleId,
         string? _embedTitle = null,
         string? _embedDescription = null,
         DiscordColor? _embedColor = null,
@@ -38,7 +40,8 @@ public class DBTicketSystem
         DBTicketSystem _dbTicketSystem = new DBTicketSystem
         {
             Id = _id,
-            GuildId = _guildId
+            GuildId = _guildId,
+            StaffRoleId = _staffRoleId
         };
 
         if (_embedTitle != null) _dbTicketSystem.EmbedTitle = _embedTitle;
