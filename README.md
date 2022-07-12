@@ -11,3 +11,6 @@
     ¨discordToken" : "YOUR TOKEN HERE"
 }
 ```
+
+## Commands
+A listing of usable commands, sorted by module [are listed here](https://github.com/Akitakek/DBot/wiki/Commands).
