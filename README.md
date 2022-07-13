@@ -1,8 +1,8 @@
 # DBot
 
-> Modular discord bot written in .NET 6 with DSharpPlus.  
-> Currently in active development, not ready for production.  
-> Artifacts available through [GitHub Actions](https://github.com/Akitakek/DBot/actions) in the meantime.
+> Modular discord bot written in .NET 6 with [DSharpPlus](https://github.com/DSharpPlus/DSharpPlus).  
+> Currently in active development.  
+> Artifacts available through [GitHub Actions](https://github.com/Akitakek/DBot/actions).
 
 ## Requirements
 `appsettings.json` file in build (or run) directory.
