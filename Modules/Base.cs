@@ -22,12 +22,14 @@ public class Base : ApplicationCommandModule
 
     public enum Modules
     {
+        [ChoiceName("Confessions")]
+        Confessions,
         [ChoiceName("Info")]
         Info,
         [ChoiceName("Moderation")]
         Moderation,
         [ChoiceName("Tickets")]
-        Tickets
+        Tickets,
     }
 
     [SlashCommand("module", "Interact with the bot's modules")]

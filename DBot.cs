@@ -20,8 +20,9 @@ public class DBot
         // Init globally (across all shards)
         var commands = await client.UseSlashCommandsAsync();
         commands.RegisterCommands<Base>();
-        commands.RegisterCommands<Moderation>();
+        commands.RegisterCommands<Confessions>();
         commands.RegisterCommands<Info>();
+        commands.RegisterCommands<Moderation>();
         commands.RegisterCommands<Tickets>();
 
         client.GuildAvailable += GuildAvailable;
