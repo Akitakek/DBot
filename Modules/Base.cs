@@ -28,6 +28,8 @@ public class Base : ApplicationCommandModule
         Info,
         [ChoiceName("Moderation")]
         Moderation,
+        [ChoiceName("Poofs")]
+        Poofs,
         [ChoiceName("Tickets")]
         Tickets,
     }

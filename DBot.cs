@@ -23,6 +23,7 @@ public class DBot
         commands.RegisterCommands<Confessions>();
         commands.RegisterCommands<Info>();
         commands.RegisterCommands<Moderation>();
+        commands.RegisterCommands<Poofs>();
         commands.RegisterCommands<Tickets>();
 
         client.GuildAvailable += GuildAvailable;
