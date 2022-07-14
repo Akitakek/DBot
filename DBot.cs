@@ -35,6 +35,15 @@ public class DBot
         return client;
     }
 
+    private async Task GuildAvailable(DiscordClient client, GuildCreateEventArgs args)
+    {
+        // Init locally (specific guild)
+        var guildId = args.Guild.Id;
+
+        // Initialize database (if it doesn't exist)
+        DB.Guild.Set(guildId);
+    }
+
     private async Task ComponentInteractionCreated(DiscordClient client, ComponentInteractionCreateEventArgs args)
     {
         if (args.Id.StartsWith(Tickets.TicketIdPrefix))
@@ -105,14 +114,5 @@ public class DBot
                     }
             }
         }
-    }
-
-    private async Task GuildAvailable(DiscordClient client, GuildCreateEventArgs args)
-    {
-        // Init shard
-        var guildId = args.Guild.Id;
-
-        // Initialize database (if it doesn't exist)
-        DB.Guild.Set(guildId);
     }
 }
