@@ -1,4 +1,3 @@
-
 using Bot.Helpers;
 using DSharpPlus;
 using DSharpPlus.Entities;
